@@ -1,3 +1,4 @@
+<h1>欢迎来到哔哩哔哩下载器！</h1>
 
 <form action="" method="post">
 	<label for="username">用户名:</label>
@@ -11,43 +12,11 @@
 </form>
 <p>如果您是游客，可以直接点击下面按钮进行游客登陆。</p>
 <a href="#">游客登陆</a>
-<!DOCTYPE html>
-<html>
-<head>
-	<title>巴拉巴拉下载器</title>
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script>
-		$(document).ready(function() {
-			$('#download-btn').click(function(e) {
-				e.preventDefault(); // 阻止默认行为
 
-				var link = $('#bilibili-link').val(); // 获取输入链接
 
-				// 发送请求
-				$.ajax({
-					url: 'download.php',
-					method: 'POST',
-					data: { link: link },
-					success: function(data) {
-						// 下载链接
-						window.location.href = data;
-					},
-					error: function() {
-						alert('下载失败，请稍后重试！');
-					}
-				});
-			});
-		});
-	</script>
-</head>
-<body>
-	<h1>巴拉巴拉下载器</h1>
 
-	<form>
-		<label for="bilibili-link">输入哔哩哔哩链接：</label>
-		<input type="text" id="bilibili-link" name="bilibili-link">
-
-		<button type="submit" id="download-btn">下载</button>
-	</form>
-</body>
-</html>
+<div>
+	<h2>视频链接</h2>
+	<input type="text" id="videoLink" name="videoLink">
+	<button id="downloadBtn">下载</button>
+</div>
