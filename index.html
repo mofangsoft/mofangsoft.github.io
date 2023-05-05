@@ -1,25 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
-	<title>哔哩哔哩下载器</title>
+	<title>巴拉巴拉下载器</title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('#download-btn').click(function(e) {
+				e.preventDefault(); // 阻止默认行为
+
+				var link = $('#bilibili-link').val(); // 获取输入链接
+
+				// 发送请求
+				$.ajax({
+					url: 'download.php',
+					method: 'POST',
+					data: { link: link },
+					success: function(data) {
+						// 下载链接
+						window.location.href = data;
+					},
+					error: function() {
+						alert('下载失败，请稍后重试！');
+					}
+				});
+			});
+		});
+	</script>
 </head>
 <body>
-	<h1>哔哩哔哩视频下载器</h1>
+	<h1>巴拉巴拉下载器</h1>
 
-	<!-- 输入框 -->
-	<label for="video-url">请输入需要下载的哔哩哔哩视频链接：</label>
-	<input type="text" id="video-url" name="video-url" required>
+	<form>
+		<label for="bilibili-link">输入哔哩哔哩链接：</label>
+		<input type="text" id="bilibili-link" name="bilibili-link">
 
-	<!-- 下载按钮 -->
-	<button onclick="download()">下载该视频</button>
-
-	<!-- 脚本 -->
-	<script>
-		function download() {
-			var videourl = document.getelementbyid("video-url").value;
-			// 这里可以编写获取视频链接并下载的代码
-			alert("正在后台下载，请稍等片刻！");
-		}
-	</script>
+		<button type="submit" id="download-btn">下载</button>
+	</form>
 </body>
 </html>
