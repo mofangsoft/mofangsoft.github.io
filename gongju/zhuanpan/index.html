@@ -1,103 +1,157 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>自定义大转盘</title>
-  </head>
-  <body>
-    <h1>自定义大转盘</h1>
-    <div id="spin-container"></div>
-    <form>
-      <label for="option1">选项1:</label><br>
-      <input type="text" id="option1" name="option1"><br>
-      <label for="option2">选项2:</label><br>
-      <input type="text" id="option2" name="option2"><br>
-      <label for="option3">选项3:</label><br>
-      <input type="text" id="option3" name="option3"><br>
-      <label for="option4">选项4:</label><br>
-      <input type="text" id="option4" name="option4"><br>
-      <label for="option5">选项5:</label><br>
-      <input type="text" id="option5" name="option5"><br>
-      <label for="option6">选项6:</label><br>
-      <input type="text" id="option6" name="option6"><br>
-      <label for="option7">选项7:</label><br>
-      <input type="text" id="option7" name="option7"><br>
-      <label for="option8">选项8:</label><br>
-      <input type="text" id="option8" name="option8"><br>
-      <label for="option9">选项9:</label><br>
-      <input type="text" id="option9" name="option9"><br>
-      <label for="option10">选项10:</label><br>
-      <input type="text" id="option10" name="option10"><br>
-      <br>
-      <input type="button" value="开始抽奖" onclick="spin()">
-    </form>
 
-    <script>
-      function spin() {
-        let options = [
-          document.getElementById("option1").value,
-          document.getElementById("option2").value,
-          document.getElementById("option3").value,
-          document.getElementById("option4").value,
-          document.getElementById("option5").value,
-          document.getElementById("option6").value,
-          document.getElementById("option7").value,
-          document.getElementById("option8").value,
-          document.getElementById("option9").value,
-          document.getElementById("option10").value,
-        ].filter((option) => option.trim() !== "");
+<head>
+  <meta charset="UTF-8">
+  <title>抽奖大转盘</title>
+  <style>
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 50px;
+    }
 
-        let spinContainer = document.getElementById("spin-container");
-        spinContainer.innerHTML = "";
+    .turnplate-wrapper {
+      position: relative;
+      width: 300px;
+      height: 300px;
+    }
 
-        let createSlice = (option, index, total) => {
-          let slice = document.createElement("div");
-          slice.style.background = `hsl(${(360 / total) * index}, 70%, 60%)`;
-          slice.style.transform = `rotate(${(360 / total) * index}deg)`;
-          slice.classList.add("slice");
-          slice.innerText = option;
-          return slice;
-        };
+    .pointer {
+      position: absolute;
+      left: 50%;
+      top: 20%;
+      margin-left: -15px;
+      width: 30px;
+      height: 120px;
+      background-image: url('https://img.icons8.com/emoji/48/000000/yellow-circle-emoji.png');
+      background-size: cover;
+      transform-origin: bottom center;
+    }
 
-        options.forEach((option, index) => {
-          spinContainer.appendChild(createSlice(option, index, options.length));
-        });
+    .result {
+      font-size: 36px;
+      font-weight: bold;
+      margin-top: 20px;
+      text-align: center;
+    }
 
-        let spinAngle = 0;
-        let spinAnimation = setInterval(() => {
-          spinAngle += Math.max(150 - spinAngle, 4);
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      border-radius: 5px;
+      background-color: #4CAF50;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
 
-          spinContainer.style.transform = `rotate(${spinAngle}deg`;
+<body>
+  <div class="container">
+    <div class="turnplate-wrapper">
+      <div class="pointer"></div>
+      <canvas id="canvas" width="300" height="300"></canvas>
+    </div>
+    <div class="result">抽奖结果</div>
+    <button onclick="start()">开始抽奖</button>
+  </div>
 
-          if (spinAngle >= 1080) {
-            clearInterval(spinAnimation);
-          }
-        }, 20);
+  <!-- 抽奖项目 -->
+  <div id="items" style="display:none;">
+    <input type="text" id="item1" placeholder="抽奖项目1" />
+    <input type="text" id="item2" placeholder="抽奖项目2" />
+    <input type="text" id="item3" placeholder="抽奖项目3" />
+    <input type="text" id="item4" placeholder="抽奖项目4" />
+    <input type="text" id="item5" placeholder="抽奖项目5" />
+    <input type="text" id="item6" placeholder="抽奖项目6" />
+    <input type="text" id="item7" placeholder="抽奖项目7" />
+    <input type="text" id="item8" placeholder="抽奖项目8" />
+    <input type="text" id="item9" placeholder="抽奖项目9" />
+    <input type="text" id="item10" placeholder="抽奖项目10" />
+  </div>
+
+  <script>
+    const items = [];
+    for (let i = 1; i <= 10; i++) {
+      const item = document.querySelector(`#item${i}`).value.trim();
+      if (item !== '') {
+        items.push(item);
       }
-    </script>
+    }
 
-    <style>
-      #spin-container {
-        width: 300px;
-        height: 300px;
-        margin: auto;
-        position: relative;
-      }
+    const canvas = document.getElementById('canvas');
+    const context = canvas.getContext('2d');
+    const colors = ['#FFA07A', '#20B2AA', '#6495ED', '#DC143C', '#EEE8AA', '#00CED1'];
 
-      .slice {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 20px;
-        text-transform: uppercase;
-        font-weight: bold;
-        cursor: pointer;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+    let speed = 0;
+    let isRunning = false;
+    let selectedIndex = -1;
+
+    function drawTurnplate() {
+      context.clearRect(0, 0, 300, 300);
+      for (let i = 0; i < items.length; i++) {
+        const color = colors[i % colors.length];
+        context.beginPath();
+        context.moveTo(150, 150);
+        context.arc(150, 150, 130, 2 * Math.PI / items.length * i, 2 * Math.PI / items.length * (i + 1));
+        context.closePath();
+        context.fillStyle = color;
+        context.fill();
+
+        context.save();
+        context.translate(150, 150);
+        context.rotate(1.5 * Math.PI / items.length + 2 * Math.PI / items.length * i);
+        context.textAlign = 'center';
+        context.fillStyle = 'white';
+        context.font = 'bold 18px Arial';
+        context.fillText(items[i], 0, -60);
+        context.restore();
       }
-    </style>
-  </body>
+    }
+
+    function start() {
+      if (items.length === 0) {
+        return;
+      }
+      if (isRunning) {
+        return;
+      }
+      isRunning = true;
+
+      selectedIndex = -1;
+      const rounds = Math.floor(Math.random() * 4 + 4); // 4-7轮
+      const targetIndex = Math.floor(Math.random() * items.length);
+      const duration = rounds * items.length * 2000;
+
+      const rotate = () => {
+        speed -= 10;
+        if (speed <= -duration) {
+          speed = -duration;
+          const newIndex = targetIndex;
+          setTimeout(() => {
+            selectedIndex = newIndex;
+            isRunning = false;
+            document.querySelector('.result').innerHTML = items[selectedIndex];
+          }, 500);
+          return;
+        }
+        drawTurnplate();
+        context.save();
+        context.translate(150, 150);
+        context.rotate(speed * 2 * Math.PI / duration);
+        context.drawImage(document.querySelector('.pointer'), -15, -120);
+        context.restore();
+        requestAnimationFrame(rotate);
+      };
+
+      rotate();
+    }
+
+    drawTurnplate();
+  </script>
+</body>
+
 </html>
