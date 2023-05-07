@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>自定义大转盘</title>
+  </head>
+  <body>
+    <h1>自定义大转盘</h1>
+    <div id="spin-container"></div>
+    <form>
+      <label for="option1">选项1:</label><br>
+      <input type="text" id="option1" name="option1"><br>
+      <label for="option2">选项2:</label><br>
+      <input type="text" id="option2" name="option2"><br>
+      <label for="option3">选项3:</label><br>
+      <input type="text" id="option3" name="option3"><br>
+      <label for="option4">选项4:</label><br>
+      <input type="text" id="option4" name="option4"><br>
+      <label for="option5">选项5:</label><br>
+      <input type="text" id="option5" name="option5"><br>
+      <label for="option6">选项6:</label><br>
+      <input type="text" id="option6" name="option6"><br>
+      <label for="option7">选项7:</label><br>
+      <input type="text" id="option7" name="option7"><br>
+      <label for="option8">选项8:</label><br>
+      <input type="text" id="option8" name="option8"><br>
+      <label for="option9">选项9:</label><br>
+      <input type="text" id="option9" name="option9"><br>
+      <label for="option10">选项10:</label><br>
+      <input type="text" id="option10" name="option10"><br>
+      <br>
+      <input type="button" value="开始抽奖" onclick="spin()">
+    </form>
+
+    <script>
+      function spin() {
+        let options = [
+          document.getElementById("option1").value,
+          document.getElementById("option2").value,
+          document.getElementById("option3").value,
+          document.getElementById("option4").value,
+          document.getElementById("option5").value,
+          document.getElementById("option6").value,
+          document.getElementById("option7").value,
+          document.getElementById("option8").value,
+          document.getElementById("option9").value,
+          document.getElementById("option10").value,
+        ].filter((option) => option.trim() !== "");
+
+        let spinContainer = document.getElementById("spin-container");
+        spinContainer.innerHTML = "";
+
+        let createSlice = (option, index, total) => {
+          let slice = document.createElement("div");
+          slice.style.background = `hsl(${(360 / total) * index}, 70%, 60%)`;
+          slice.style.transform = `rotate(${(360 / total) * index}deg)`;
+          slice.classList.add("slice");
+          slice.innerText = option;
+          return slice;
+        };
+
+        options.forEach((option, index) => {
+          spinContainer.appendChild(createSlice(option, index, options.length));
+        });
+
+        let spinAngle = 0;
+        let spinAnimation = setInterval(() => {
+          spinAngle += Math.max(150 - spinAngle, 4);
+
+          spinContainer.style.transform = `rotate(${spinAngle}deg`;
+
+          if (spinAngle >= 1080) {
+            clearInterval(spinAnimation);
+          }
+        }, 20);
+      }
+    </script>
+
+    <style>
+      #spin-container {
+        width: 300px;
+        height: 300px;
+        margin: auto;
+        position: relative;
+      }
+
+      .slice {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        text-transform: uppercase;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+      }
+    </style>
+  </body>
+</html>
