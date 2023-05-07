@@ -1,157 +1,108 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-  <meta charset="UTF-8">
-  <title>抽奖大转盘</title>
-  <style>
-    .container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: 50px;
-    }
+	<title>抽奖大转盘</title>
+	<style type="text/css">
+		#rotate {
+			background-color: #FF6961;
+			color: white;
+			width: 300px;
+			height: 300px;
+			border-radius: 50%;
+			transform: rotate(0deg);
+			transition: transform 3s ease-in-out;
+			margin: 50px auto;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size: 30px;
+			font-weight: bold;
+		}
 
-    .turnplate-wrapper {
-      position: relative;
-      width: 300px;
-      height: 300px;
-    }
+		#rotate.active {
+			transform: rotate(1080deg);
+		}
 
-    .pointer {
-      position: absolute;
-      left: 50%;
-      top: 20%;
-      margin-left: -15px;
-      width: 30px;
-      height: 120px;
-      background-image: url('https://img.icons8.com/emoji/48/000000/yellow-circle-emoji.png');
-      background-size: cover;
-      transform-origin: bottom center;
-    }
-
-    .result {
-      font-size: 36px;
-      font-weight: bold;
-      margin-top: 20px;
-      text-align: center;
-    }
-
-    button {
-      margin-top: 20px;
-      padding: 10px 20px;
-      border-radius: 5px;
-      background-color: #4CAF50;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-    }
-  </style>
+		#result {
+			background-color: #FDFD96;
+			color: #333;
+			padding: 20px;
+			margin-top: 50px;
+			width: 500px;
+			height: 100px;
+			font-size: 24px;
+			font-weight: bold;
+			text-align: center;
+		}
+	</style>
 </head>
-
 <body>
-  <div class="container">
-    <div class="turnplate-wrapper">
-      <div class="pointer"></div>
-      <canvas id="canvas" width="300" height="300"></canvas>
-    </div>
-    <div class="result">抽奖结果</div>
-    <button onclick="start()">开始抽奖</button>
-  </div>
+	<div id="rotate">点击输入选项底下的“开始抽奖”</div>
+	<div>
+		<label for="item1">选项 1：</label>
+		<input type="text" id="item1" name="item1"><br>
 
-  <!-- 抽奖项目 -->
-  <div id="items" style="display:none;">
-    <input type="text" id="item1" placeholder="抽奖项目1" />
-    <input type="text" id="item2" placeholder="抽奖项目2" />
-    <input type="text" id="item3" placeholder="抽奖项目3" />
-    <input type="text" id="item4" placeholder="抽奖项目4" />
-    <input type="text" id="item5" placeholder="抽奖项目5" />
-    <input type="text" id="item6" placeholder="抽奖项目6" />
-    <input type="text" id="item7" placeholder="抽奖项目7" />
-    <input type="text" id="item8" placeholder="抽奖项目8" />
-    <input type="text" id="item9" placeholder="抽奖项目9" />
-    <input type="text" id="item10" placeholder="抽奖项目10" />
-  </div>
+		<label for="item2">选项 2：</label>
+		<input type="text" id="item2" name="item2"><br>
 
-  <script>
-    const items = [];
-    for (let i = 1; i <= 10; i++) {
-      const item = document.querySelector(`#item${i}`).value.trim();
-      if (item !== '') {
-        items.push(item);
-      }
-    }
+		<label for="item3">选项 3：</label>
+		<input type="text" id="item3" name="item3"><br>
 
-    const canvas = document.getElementById('canvas');
-    const context = canvas.getContext('2d');
-    const colors = ['#FFA07A', '#20B2AA', '#6495ED', '#DC143C', '#EEE8AA', '#00CED1'];
+		<label for="item4">选项 4：</label>
+		<input type="text" id="item4" name="item4"><br>
 
-    let speed = 0;
-    let isRunning = false;
-    let selectedIndex = -1;
+		<label for="item5">选项 5：</label>
+		<input type="text" id="item5" name="item5"><br>
 
-    function drawTurnplate() {
-      context.clearRect(0, 0, 300, 300);
-      for (let i = 0; i < items.length; i++) {
-        const color = colors[i % colors.length];
-        context.beginPath();
-        context.moveTo(150, 150);
-        context.arc(150, 150, 130, 2 * Math.PI / items.length * i, 2 * Math.PI / items.length * (i + 1));
-        context.closePath();
-        context.fillStyle = color;
-        context.fill();
+		<label for="item6">选项 6：</label>
+		<input type="text" id="item6" name="item6"><br>
 
-        context.save();
-        context.translate(150, 150);
-        context.rotate(1.5 * Math.PI / items.length + 2 * Math.PI / items.length * i);
-        context.textAlign = 'center';
-        context.fillStyle = 'white';
-        context.font = 'bold 18px Arial';
-        context.fillText(items[i], 0, -60);
-        context.restore();
-      }
-    }
+		<label for="item7">选项 7：</label>
+		<input type="text" id="item7" name="item7"><br>
 
-    function start() {
-      if (items.length === 0) {
-        return;
-      }
-      if (isRunning) {
-        return;
-      }
-      isRunning = true;
+		<label for="item8">选项 8：</label>
+		<input type="text" id="item8" name="item8"><br>
 
-      selectedIndex = -1;
-      const rounds = Math.floor(Math.random() * 4 + 4); // 4-7轮
-      const targetIndex = Math.floor(Math.random() * items.length);
-      const duration = rounds * items.length * 2000;
+		<label for="item9">选项 9：</label>
+		<input type="text" id="item9" name="item9"><br>
 
-      const rotate = () => {
-        speed -= 10;
-        if (speed <= -duration) {
-          speed = -duration;
-          const newIndex = targetIndex;
-          setTimeout(() => {
-            selectedIndex = newIndex;
-            isRunning = false;
-            document.querySelector('.result').innerHTML = items[selectedIndex];
-          }, 500);
-          return;
-        }
-        drawTurnplate();
-        context.save();
-        context.translate(150, 150);
-        context.rotate(speed * 2 * Math.PI / duration);
-        context.drawImage(document.querySelector('.pointer'), -15, -120);
-        context.restore();
-        requestAnimationFrame(rotate);
-      };
+		<label for="item10">选项 10：</label>
+		<input type="text" id="item10" name="item10"><br>
 
-      rotate();
-    }
+		<button onclick="start()">开始抽奖</button>
+	</div>
 
-    drawTurnplate();
-  </script>
+	<div id="result"></div>
+
+	<script>
+		function start() {
+			var items = [];
+			var inputs = document.querySelectorAll('input[type="text"]');
+			for (var i = 0; i < inputs.length; i++) {
+				if (inputs[i].value.trim().length > 0) {
+					items.push(inputs[i].value.trim());
+				}
+			}
+
+			if (items.length === 0) {
+				alert('请至少输入一个选项！');
+				return;
+			}
+
+			var rotate = document.getElementById('rotate');
+			rotate.classList.remove('active');
+			setTimeout(function() {
+				rotate.classList.add('active');
+				setTimeout(function() {
+					var index = getRandomInt(0, items.length - 1);
+					document.getElementById('result').innerHTML = '恭喜您，抽中了：' + items[index];
+				}, 3000);
+			}, 100);
+
+			function getRandomInt(min, max) {
+				return Math.floor(Math.random() * (max - min + 1)) + min;
+			}
+		}
+	</script>
 </body>
-
 </html>
