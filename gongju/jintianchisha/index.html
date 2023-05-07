@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>今天吃什么</title>
+<style>
+body {
+background-color: #f3f3f3;
+font-family: Arial, sans-serif;
+font-size: 16px;
+color: #333;
+text-align: center;
+}
+h1 {
+margin-top: 50px;
+font-size: 36px;
+}
+p {
+margin-top: 20px;
+font-size: 24px;
+font-weight: bold;
+}
+button {
+margin-top: 30px;
+padding: 12px 24px;
+border: none;
+border-radius: 5px;
+background-color: #4285F4;
+color: #fff;
+font-size: 20px;
+cursor: pointer;
+}
+button:hover {
+background-color: #3271E0;
+}
+.popup {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0,0,0,0.7);
+display: flex;
+justify-content: center;
+align-items: center;
+z-index: 999;
+opacity: 0;
+visibility: hidden;
+transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.popup.active {
+opacity: 1;
+visibility: visible;
+}
+.popup-inner {
+background-color: #fff;
+padding: 30px;
+border-radius: 5px;
+box-shadow: 0 0 10px rgba(0,0,0,0.3);
+text-align: center;
+}
+.close {
+position: absolute;
+top: 20px;
+right: 20px;
+font-size: 24px;
+color: #666;
+cursor: pointer;
+transition: transform 0.3s ease;
+}
+.close:hover {
+transform: rotate(90deg);
+}
+</style>
+</head>
+<body>
+<h1>今天吃什么？</h1>
+<p id="result1"></p>
+<p id="result2"></p>
+<button onclick="pick()">吃什么？</button>
+
+<div class="popup">
+	<div class="popup-inner">
+		<p>今天的美食选择：</p>
+		<h2 id="popup-result1"></h2>
+		<h2 id="popup-result2"></h2>
+		<span class="close" onclick="closePopup()">&times;</span>
+	</div>
+</div>
+
+<script>
+	function pick() {
+		let arr = [
+			"1 火锅",
+			"2 烤鸭",
+			"3 兰州拉面",
+			"4 串串香",
+			"5 酸辣粉",
+			"6 热干面",
+			"7 肉夹馍",
+			"8 臭豆腐",
+			"9 肠粉",
+			"10 小笼包",
+			"11 桂林米粉",
+			"12 山东煎饼",
+			"13 螺蛳粉",
+			"14 锅包肉",
+			"15 炉肉火烧",
+			"16 刀削面",
+			"17 瓦罐汤",
+			"18 佛跳墙",
+			"19 天津煎饼果子",
+			"20 河南烩",
+			"21 胡辣汤",
+			"22 台湾蚵仔煎",
+			"23 甜不辣",
+			"24 炸酱面",
+			"25 糖火烧",
+			"26 奶油炸糕",
+			"27 馓子麻花",
+			"28 老北京驴打滚",
+			"29 叉烧包",
+			"30 饺子",
+			"31 鸡仔饼",
+			"32 月饼",
+			"33 酥皮包",
+			"34 钵仔糕",
+			"35 钵仔糕",
+			"36 煎堆",
+			"37 濑粉",
+			"38 大列巴",
+			"40 烤冷面",
+			"41 大庆坑烤",
+			"42 黑龙江炸三角",
+			"43 黄米切糕",
+			"44 锅烙",
+			"45 玫瑰酥饼",
+			"46 大庆扒鸡",
+			"47 豆腐乳",
+			"48 延吉冷面",
+			"49 鸡汤豆腐串",
+			"50 长春酱肉",
+			"51 长春酱肉",
+			"52 新兴园蒸饺",
+			"53 李连贵熏大饼",
+			"54 生煎包",
+			"55 排骨年糕",
+			"56 头条糕",
+			"57 排骨年糕",
+			"58 徽州毛豆腐",
+			"59 黄山烧饼",
+			"60 淮南牛肉汤",
+			"61 合肥鸭油烧饼",
+			"63 阜阳格拉条",
+			"64 石头粿",
+			"65 符离集烧鸡",
+			"66 苏州SA汤",
+			"67 三河米饺",
+			"68 玉林牛巴",
+			"69 北海虾仔饼",
+			"70 梧州冰泉豆浆",
+			"71 粽子",
+			"72 恭城油茶",
+			"73 马蹄糕",
+			"74 三鲜豆皮",
+			"75 四季美汤包",
+			"76 碗糕",
+			"77 鸭血粉丝汤",
+			"78 无锡酱排骨",
+			"79 昆山奥灶面",
+			"80 泰州烫干丝",
+			"81 蟹黄汤包",
+			"82 汤圆",
+			"83 涪陵油醪糟",
+			"84 云吞面",
+			"85 钵仔糕",
+			"86 糖油粑粑",
+			"87 长沙口味虾",
+			"88 湖南酱板鸭",
+			"89 姊妹团子",
+			"90 脑髓卷",
+			"91 刮凉粉",
+			"92 铅山烫粉",
+			"93 扬州炒饭",
+			"94 重庆抄手",
+			"95 常德牛肉米粉",
+			"96 南昌白糖糕",
+			"97 南宁老友粉",
+			"98 玉林牛巴",
+			"99 下灌状元水丸子",
+			"100 哈尔滨红肠"
+		];
+		let result1 = arr[Math.floor(Math.random() * arr.length)];
+		let result2 = arr[Math.floor(Math.random() * arr.length)];
+		document.getElementById("result1").innerHTML = result1;
+		document.getElementById("result2").innerHTML = result2;
+		document.getElementById("popup-result1").innerHTML = result1;
+		document.getElementById("popup-result2").innerHTML = result2;
+		document.querySelector(".popup").classList.add("active");
+	}
+	function closePopup() {
+		document.querySelector(".popup").classList.remove("active");
+	}
+</script>
+</body>
+</html>
