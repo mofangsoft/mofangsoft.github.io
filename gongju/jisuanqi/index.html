@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>计算器</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			padding: 10px;
+			text-align: center;
+		}
+		
+		input[type="button"] {
+			background-color: #4CAF50;
+			border: none;
+			color: white;
+			padding: 12px 24px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin: 4px 2px;
+			cursor: pointer;
+			box-shadow: 0 2px 2px 0 rgba(0,0,0,0.2), 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 9px 0 rgba(0,0,0,0.12);
+		}
+		
+		input[type="text"] {
+			padding: 12px;
+			font-size: 16px;
+			border-radius: 5px;
+			border: none;
+			box-shadow: 0 2px 2px 0 rgba(0,0,0,0.2), 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 9px 0 rgba(0,0,0,0.12);
+		}
+		
+		input[type="button"]:hover {
+			background-color: #3E8E41;
+		}
+		
+		input[type="button"]:active {
+			box-shadow: inset 0 5px 5px 0 rgba(0,0,0,0.2), inset 0 7px 15px 0 rgba(0,0,0,0.17), inset 0 1px 17px 0 rgba(0,0,0,0.11);
+		}
+	</style>
+</head>
+
+<body>
+	<h1>计算器</h1>
+	<input type="text" id="result" readonly><br>
+	<input type="button" value="1" onclick="calculator.display.value += '1'">
+	<input type="button" value="2" onclick="calculator.display.value += '2'">
+	<input type="button" value="3" onclick="calculator.display.value += '3'">
+	<input type="button" value="+" onclick="calculator.display.value += '+'"><br>
+	<input type="button" value="4" onclick="calculator.display.value += '4'">
+	<input type="button" value="5" onclick="calculator.display.value += '5'">
+	<input type="button" value="6" onclick="calculator.display.value += '6'">
+	<input type="button" value="-" onclick="calculator.display.value += '-'"><br>
+	<input type="button" value="7" onclick="calculator.display.value += '7'">
+	<input type="button" value="8" onclick="calculator.display.value += '8'">
+	<input type="button" value="9" onclick="calculator.display.value += '9'">
+	<input type="button" value="*" onclick="calculator.display.value += '*'"><br>
+	<input type="button" value="C" onclick="calculator.display.value = ''">
+	<input type="button" value="0" onclick="calculator.display.value += '0'">
+	<input type="button" value="/" onclick="calculator.display.value += '/'">
+	<input type="button" value="=" onclick="calculator.display.value = eval(calculator.display.value)"><br><br>
+	
+	<script>
+		var calculator = {
+			display: document.getElementById('result')
+		}
+	</script>
+</body>
+</html>
