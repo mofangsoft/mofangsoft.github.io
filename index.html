@@ -19,7 +19,221 @@
 <li><a href="https://space.bilibili.com/2041869981">bilibili By @蓝瓶队长</a></li>
 <li><a href="https://github.com/mofangsoft/mofangsoft.github.io">作者的GitHub</a></li>
 </ul>
-  <iframe src="https://www.lovestu.com/api/project/cnmapyinqing/obj.php" height="500" frameborder="no" border="0" width="100%"> </iframe>
+ <details open="">
+                        <summary>
+                            <h3>英语音标发音表.点读发音表</h3>
+                        </summary>
+                        <div style="margin:15px 0px;">
+                            <style type="text/css">
+                                #tbl_box {
+                                    background-image: radial-gradient(farthest-side at 80% 25%, #FFF 2%, rgb(150, 199, 113) 80%);
+                                    padding: 20px 15px 20px 15px;
+                                    min-width: 600px;
+                                    box-sizing: border-box;
+                                }
+
+                                #tbl_box td span {
+                                    width: 50px;
+                                    height: 34px;
+                                    font-size: 1.6em;
+                                    text-align: center;
+                                    line-height: 34px;
+                                    cursor: pointer;
+                                    color: #333;
+                                    font-family: "lucida sans unicode";
+                                    display: inline-block;
+                                    background: rgb(134, 182, 158);
+                                    border: 1px solid rgb(139, 164, 135);
+                                    -webkit-border-radius: 5px 5px 0 0;
+                                    -ms-border-radius: 5px 5px 0 0;
+                                    -o-border-radius: 5px 5px 0 0;
+                                    -moz-border-radius: 5px 5px 0 0;
+                                    border-radius: 5px 5px 0 0;
+                                    box-shadow: 0px 0px 5px rgb(17, 112, 74);
+                                }
+
+                                #tbl_box td span:hover,
+                                #tbl_box td span.hover {
+                                    background: rgb(99, 74, 123);
+                                    color: #FFF;
+                                }
+
+                                #tbl_box .btn2 {
+                                    background: rgb(0, 105, 56);
+                                    color: #FFF;
+                                    font-size: 1.2em;
+                                    width: 70px;
+                                    height: 34px;
+                                    line-height: 34px;
+                                    text-align: center;
+                                    -webkit-border-radius: 24px 0 0 24px;
+                                    -ms-border-radius: 24px 0 0 24px;
+                                    -o-border-radius: 24px 0 0 24px;
+                                    -moz-border-radius: 24px 0 0 24px;
+                                    border-radius: 24px 0 0 24px;
+                                    box-shadow: 0px 0px 5px rgb(17, 112, 74);
+                                    cursor: pointer;
+                                    padding: 0 8px;
+                                    ;
+                                }
+
+                                #tbl_box .btn2:hover,
+                                #tbl_box .btn2.hover {
+                                    background: rgb(198, 150, 254);
+                                    color: rgb(2, 2, 2);
+                                }
+
+                                #tbl_box .btn1 {
+                                    word-break: break-all;
+                                    text-align: center;
+                                    background: rgb(0, 40, 81);
+                                    color: rgb(255, 255, 158);
+                                    font-size: 1.5em;
+                                    padding: 14px 2px;
+                                    -webkit-border-radius: 24px;
+                                    -ms-border-radius: 24px;
+                                    -o-border-radius: 24px;
+                                    -moz-border-radius: 24px;
+                                    border-radius: 24px;
+                                    box-shadow: 0px 0px 5px rgb(17, 112, 74);
+                                    cursor: pointer;
+                                }
+
+                                #tbl_box .btn1:hover,
+                                #tbl_box .btn1.hover {
+                                    background: rgb(174, 214, 254);
+                                    color: rgb(98, 2, 2);
+                                }
+
+                                #tbl_box .bcap h3 {
+                                    writing-mode: lr-tb;
+                                    -webkit-writing-mode: lr-tb;
+                                    -ms-writing-mode: lr-tb;
+                                    font-size: 32px;
+                                    color: rgb(138, 148, 49);
+                                    text-shadow: 0px 0px 5px rgb(255, 255, 158);
+                                    letter-spacing: 10px;
+                                    line-height: normal;
+                                }
+                            </style>
+                            <script type="text/javascript">
+                                $(function () {
+                                    if (CApp.ScreenWidth() < 990 && Cookies.get('sfordev') != 'pc') { $("#tbl_box").css({ 'zoom': $('.c_body_in').width() / 600 }); }
+                                    var tt = '';
+                                    var burl = 'amp3/';
+                                    var ybbtn = $("#tbl_box td span[m]");
+
+                                    ybbtn.on(CApp.ClickEname, function () {
+                                        CApp.Aplay(burl + $(this).attr('m') + '.mp3');
+                                        $(CApp.Aaudio).unbind('ended');
+                                        ybbtn.removeClass('hover');
+                                    });
+
+                                    $("#tbl_box .btn1").on(CApp.ClickEname, function () {
+                                        CApp.Aplay(burl + $(this).attr('m') + '.mp3');
+                                    });
+
+                                    $("#tbl_box .btn2").on(CApp.ClickEname, function () {
+                                        $(CApp.Aaudio).remove();
+                                        var listC = $(this).attr('m') + '_list', pos = 0;
+                                        CApp.Aplay(burl + $(this).attr('m') + '.mp3');
+                                        ybbtn.removeClass('hover'); $(CApp.Aaudio).unbind('ended');
+                                        $(CApp.Aaudio).bind('ended', function () {
+                                            var cs = $("#tbl_box ." + listC + " span[m]");
+                                            cs.removeClass('hover');
+                                            if (pos < cs.length) {
+                                                var cObj = cs.eq(pos++);
+                                                setTimeout(function () { CApp.Aplay(burl + cObj.attr('m') + '.mp3') }, 500);
+                                                cObj.addClass('hover');
+                                            }
+                                        })
+
+                                    })
+
+
+                                    $("#tbl_box span[m],#tbl_box td[m]").each(function () {
+                                        var a = document.createElement('audio');
+                                        a.preload = 'auto';
+                                        a.src = burl + $(this).attr('m') + '.mp3';
+                                    });
+                                });
+                            </script>
+                            <div id="tbl_box">
+                                <table border="0" cellpadding="1" cellspacing="4" width="100%">
+                                    <tbody>
+                                        <tr>
+                                            <td rowspan="3" style="vertical-align: top;">
+                                                <div class="btn1 yy" m="yy">
+                                                    元音</div>
+                                            </td>
+                                            <td style="width: 80px; vertical-align: top;">
+                                                <div class="btn2 yy1" m="cyy">
+                                                    长元音</div>
+                                            </td>
+                                            <td class="cyy_list" style="padding:0 0 15px;">
+                                                <span m="iː" class="">iː</span><span m="ɜː" class="">ɜː</span><span m="ɑː" class="">ɑː</span><span m="ɔː" class="">ɔː</span><span m="uː" class="">uː</span>
+                                            </td>
+                                            <td rowspan="6" style="width:40px;text-align:center;">
+                                                <div class="bcap">
+                                                    <h3>
+                                                        英语音标表</h3>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="vertical-align: top;">
+                                                <div class="btn2 yy1" m="dyy">
+                                                    短元音</div>
+                                            </td>
+                                            <td class="dyy_list" style="padding:0 0 15px;">
+                                                <span m="ɪ" class="">ɪ</span><span m="e" class="">e</span><span m="æ" class="">æ</span><span m="ə" class="">ə</span><span m="ʌ" class="">ʌ</span><span m="ɒ" class="">ɒ</span><span m="ʊ" class="">ʊ</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="vertical-align: top;">
+                                                <div class="btn2 yy1" m="syy">
+                                                    双元音</div>
+                                            </td>
+                                            <td class="syy_list">
+                                                <span m="eɪ" class="">eɪ</span><span m="aɪ" class="">aɪ</span><span m="ɔɪ" class="">ɔɪ</span><span m="əʊ" class="">əʊ</span><span m="aʊ" class="">aʊ</span><span m="ɪə" class="">ɪə</span><span m="eə" class="">eə</span><span m="ʊə" class="">ʊə</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                &nbsp;</td>
+                                            <td>
+                                                &nbsp;</td>
+                                            <td>
+                                                &nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="2" style="vertical-align: top;">
+                                                <div class="btn1 fy" m="fy">
+                                                    辅音</div>
+                                            </td>
+                                            <td style="vertical-align: top;">
+                                                <div class="btn2 fy1" m="qfy">
+                                                    清辅音</div>
+                                            </td>
+                                            <td class="qfy_list" style="padding:0 0 15px;">
+                                                <span m="p" class="">p</span><span m="t" class="">t</span><span m="k" class="">k</span><span m="f" class="">f</span><span m="θ" class="">θ</span><span m="s" class="">s</span><span m="ʃ" class="">ʃ</span><span m="h" class="">h</span><span m="tʃ" class="">tʃ</span><span m="ts" class="">ts</span><span m="tr" class="">tr</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="vertical-align: top;">
+                                                <div class="btn2 fy1" m="zfy">
+                                                    浊辅音</div>
+                                            </td>
+                                            <td class="zfy_list" style="padding:0 0 15px;">
+                                                <span m="b" class="">b</span><span m="d" class="">d</span><span m="g" class="">ɡ</span><span m="v" class="">v</span><span m="ð" class="">ð</span><span m="z" class="">z</span><span m="ʒ" class="">ʒ</span><span m="r" class="">r</span><span m="dʒ" class="">dʒ</span><span m="dz" class="">dz</span><span m="dr" class="">dr</span><br>
+                                                <span m="m" class="">m</span><span m="n" class="">n</span><span m="ŋ" class="">ŋ</span><span m="l" class="">l</span><span m="j" class="">j<div id="extwaiokist" style="display:none" v="amfbo" q="270bf04c" c="0.247" i="11" u="5.850" s="07052315" sg="svr_04262315-ga_07052315-bai_undefined" d="1" w="false" e="" a="3" m="BMe=" vn="9ivdl"><div id="extwaigglbit" style="display:none" v="amfbo" q="270bf04c" c="0.247" i="11" u="5.850" s="07052315" sg="svr_04262315-ga_07052315-bai_undefined" d="1" w="false" e="" a="3" m="BMe="></div></div></span><span m="w" class="">w</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </details>
 <h6>免责声明：</h6>
 <p>本资源仅限用于学习和研究目的；不得将上述内容用于商业或者非法用途，否则，一切后果请用户自负。您必须在下载后的24个小时之内，从您的电脑中彻底删除上述内容。如果您喜欢该程序，请支持正版软件，购买注册，得到更好的正版服务。</p>
 <p>附: 二○○二年一月一日《计算机软件保护条例》第十七条规定：为了学习和研究软件内含的设计思想和原理，通过安装、显示、传输或者存储软件等方式使用软件的，可以不经软件著作权人许可，不向其支付报酬！</p>
