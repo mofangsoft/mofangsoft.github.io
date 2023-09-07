@@ -101,7 +101,7 @@ let taskmgrTasks = [
         name: 'Input Locales'
     },
     {
-        name: 'Windows壳进程'
+        name: 'Windows进程'
     },
     {
         name: '本地安全权限服务'
