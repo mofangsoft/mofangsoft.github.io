@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>铁路信息查询</title>
+    <meta name="keywords" content="铁路 12306 动车组 交路 车站 电报码 TMIS">
+    <meta name="author" content="Arnie97">
+    <link rel="preconnect" href="https://api.moerail.ml">
+    <link rel="dns-prefetch" href="https://api.moerail.ml">
+    <link rel="stylesheet" href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-12-M/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-12-M/font-awesome/5.10.2/css/all.min.css" integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-12-M/github-fork-ribbon-css/0.2.3/gh-fork-ribbon.css" integrity="sha256-gEYuPiCt4z3aRsQm0F4X5YBtK8t/Ny7v+Q9GwjLuJS0=" crossorigin="anonymous">
+    <link rel="stylesheet" href="telecode.css">
+</head>
+
+<body>
+<header>
+    <div class="container jumbotron">
+        <div class="row"><div class="col-xs-12 col-sm-10 col-sm-offset-1">
+            <h2>铁路信息查询</h2>
+            <div class="search-wraper" role="search">
+            <div class="form-group">
+                <input class="form-control search clearable" placeholder="动车组车次 / 车站名 / 车站代码" autocomplete="off">
+                <i class="fa fa-search"></i>
+            </div>
+            </div>
+            <p>
+                <span class="hidden-xs">当前收录</span>
+                <strong id="stations">0</strong> 座车站，<strong id="trains">0</strong> 个车次
+            </p>
+            <div><a href="https://kyfw.12306.cn/otn/resources/js/framework/station_name.js" target="_blank">
+                车站数据</a>版本：<span id="stations-version">...</span></div>
+            <div><a href="https://github.com/arnie97/emu-log" target="_blank">
+                交路数据</a>版本：<span id="trains-version">...</span></div>
+            <div id="client" class="hidden">
+                安装<a id="ext" class="hidden" target="_blank" href="https://greasyfork.org/zh-CN/scripts/33266" title="Greasy Fork：动车组交路查询">浏览器扩展</a><!--
+                ---><a id="ios" class="hidden" target="_blank" href="https://apps.apple.com/cn/app/id1471687297" title="App Store：动车组交路查询">手机客户端</a><!--
+                ---><a id="apk" class="hidden" target="_blank" href="ml.moerail.apk" title="下载动车组查询 App">手机客户端</a>，查询更便捷
+            </div>
+            <div id="offline" class="hidden">当前离线，部分功能不可用</div>
+        </div></div>
+    </div>
+    <a class="github-fork-ribbon" data-ribbon="Fork me on GitHub" title="Fork me on GitHub" href="https://github.com/arnie97/moerail">Fork me on GitHub</a>
+</header>
+
+<main class="container">
+    <div class="row"><div class="col-xs-12 col-md-8 col-md-offset-2 table-responsive">
+        <table id="station-list" class="table table-hover component">
+            <thead><tr>
+                <th><!-- 办理限制 --></th>
+                <th>站名</th>
+                <th>路局</th>
+                <th>省<span class="hidden-xs hidden-sm">级行政区划</span></th>
+                <th>电报<span class="hidden-xs">略码</span></th>
+                <th>拼音<span class="hidden-xs">码</th>
+                <th>TMIS</th>
+            </tr></thead>
+            <tbody>
+            </tbody>
+        </table>
+        <table id="train-list" class="table table-hover hidden component">
+            <thead><tr>
+                <th>车组号</th>
+                <th><span class="hidden-xs">担当</span>车次</th>
+                <th>日期</th>
+            </tr></thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div></div>
+</main>
+
+<footer><div class="container">
+    Designed by <a title="GitHub" href="https://github.com/Arnie97" target="_blank">Arnie97</a>
+    &middot;
+    <a href="/links">Links &amp; Tips</a>
+</div></footer>
+
+<script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-12-M/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-12-M/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+<script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-12-M/jquery.tablesorter/2.31.1/js/jquery.tablesorter.min.js" integrity="sha256-uC1JMW5e1U5D28+mXFxzTz4SSMCywqhxQIodqLECnfU=" crossorigin="anonymous"></script>
+<script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-12-M/geopattern/1.2.3/js/geopattern.min.js" integrity="sha256-AOyAcXCKLfI+FRdiZr4VTj9h9Wwv0YXXa2CPfUWbBS8=" crossorigin="anonymous"></script>
+
+<script src="station.js"></script>
+<script src="polyfill.js"></script>
+<script src="bureau.js"></script>
+<script src="version.js"></script>
+<script src="telecode.js"></script>
+
+</body>
+</html>
