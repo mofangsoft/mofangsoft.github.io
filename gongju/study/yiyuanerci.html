@@ -1,0 +1,118 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>一元二次方程求解器</title>  
+    <style>  
+        body {  
+            font-family: Arial, sans-serif;  
+            background-color: #f2f2f2;  
+            margin: 0;  
+            padding: 0;  
+        }  
+        .container {  
+            max-width: 600px;  
+            margin: 40px auto;  
+            padding: 30px;  
+            background-color: #fff;  
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);  
+            border-radius: 10px;  
+        }  
+        h2 {  
+            text-align: center;  
+            color: #333;  
+        }  
+        form {  
+            display: flex;  
+            flex-direction: column;  
+            gap: 15px;  
+        }  
+        label {  
+            display: block;  
+            font-weight: bold;  
+            margin-bottom: 5px;  
+        }  
+        input[type="number"] {  
+            padding: 10px;  
+            border-radius: 5px;  
+            border: 1px solid #ccc;  
+            width: 100%;  
+        }  
+        button {  
+            padding: 10px 20px;  
+            background-color: #4CAF50;  
+            color: #fff;  
+            border: none;  
+            border-radius: 5px;  
+            cursor: pointer;  
+        }  
+        button:hover {  
+            background-color: #45a049;  
+        }  
+        .result {  
+            margin-top: 30px;  
+            padding: 20px;  
+            border-top: 1px solid #ccc;  
+        }  
+        .result h3 {  
+            color: #333;  
+        }  
+        .result p {  
+            margin-bottom: 10px;  
+        }  
+    </style>  
+</head>  
+<body>  
+    <div class="container">  
+        <h2>一元二次方程求解器</h2>  
+        <form id="quadraticForm">  
+            <label for="a">系数a:</label>  
+            <input type="number" id="a" required><br><br>  
+            <label for="b">系数b:</label>  
+            <input type="number" id="b" required><br><br>  
+            <label for="c">系数c:</label>  
+            <input type="number" id="c" required><br><br>  
+            <button type="submit">求解</button>  
+        </form>  
+        <div class="result" id="result"></div>  
+    </div>  
+  
+    <script>  
+        document.getElementById('quadraticForm').addEventListener('submit', function(event) {  
+            event.preventDefault(); // 阻止表单默认提交行为  
+  
+            const a = parseFloat(document.getElementById('a').value);  
+            const b = parseFloat(document.getElementById('b').value);  
+            const c = parseFloat(document.getElementById('c').value);  
+  
+            let resultHTML = '<h3>计算过程：</h3>';  
+  
+            // 计算判别式 Δ  
+            const delta = b * b - 4 * a * c;  
+            resultHTML += `Δ = ${b}^2 - 4 * ${a} * ${c} = ${delta}<br><br>`;  
+  
+            // 判断方程的根的情况  
+            if (delta > 0) {  
+                // 两个不相等的实根  
+                const x1 = (-b + Math.sqrt(delta)) / (2 * a);  
+                const x2 = (-b - Math.sqrt(delta)) / (2 * a);  
+                resultHTML += `方程有两个不相等的实根：<br>`;  
+                resultHTML += `x1 = (-${b} + √${delta}) / (2 * ${a}) = ${x1.toFixed(2)}<br>`;  
+                resultHTML += `x2 = (-${b} - √${delta}) / (2 * ${a}) = ${x2.toFixed(2)}<br>`;  
+            } else if (delta === 0) {  
+                // 两个相等的实根  
+                const x = -b / (2 * a);  
+                resultHTML += `方程有两个相等的实根：<br>`;  
+                resultHTML += `x = -${b} / (2 * ${a}) = ${x.toFixed(2)}<br>`;  
+            } else {  
+                // 无实根  
+                resultHTML += `方程无实根，因为判别式 Δ = ${delta} < 0<br>`;  
+            }  
+  
+            // 显示结果  
+            document.getElementById('result').innerHTML = resultHTML;  
+        });  
+    </script>  
+</body>  
+</html>
