@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>随机抽取同学学号</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            font-size: 24px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>随机抽取同学学号</h1>
+        <button onclick="pickStudent()">抽取学号</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        const probability = [
+            0.025, 0.005, 0.025, 0.025, 0.025, 0.025, 0.025, 0.025, 0.025, 0.025,
+0.025, 0.025, 0.025, 0.025, 0.025, 0.025, 0.025, 0.025, 0.025, 0.025,
+0.025, 0.025, 0.05, 0.025, 0.045, 0.025, 0.025, 0.025, 0.025, 0.025,
+0.025, 0.025, 0.025, 0.025, 0.025, 0.025, 0.025, 0.025, 0.025, 0.000
+        ];
+
+        function pickStudent() {
+            const randomNumber = Math.random();
+            let cumulativeProbability = 0;
+            let pickedStudent = 1;
+
+            for (let i = 0; i < probability.length; i++) {
+                cumulativeProbability += probability[i];
+                if (randomNumber <= cumulativeProbability) {
+                    pickedStudent = i + 1;
+                    break;
+                }
+            }
+
+            document.getElementById('result').innerText = `抽到的学号是：${pickedStudent}`;
+        }
+    </script>
+</body>
+</html>
