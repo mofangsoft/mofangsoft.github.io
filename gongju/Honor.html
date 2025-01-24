@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASCII 偏移转换器</title>
+</head>
+<body>
+    <h1>ASCII 偏移转换器</h1>
+    <p>输入一段文本，程序会将其转换为 ASCII，并根据最后一位数字偏移所有字符。</p>
+    <textarea id="inputText" rows="5" cols="50" placeholder="输入内容，例如：hZfd#d[jjV[j`V(('V+*'V-g/'V[g_pVZd[Vm\iV''(1 msm_drm.m_t0=9"></textarea>
+    <br><br>
+    <button onclick="convertText()">转换</button>
+    <h3>输出结果：</h3>
+    <pre id="output"></pre>
+
+    <script>
+        function convertText() {
+            const input = document.getElementById("inputText").value;
+            const outputElement = document.getElementById("output");
+
+            if (input.length === 0) {
+                outputElement.textContent = "请输入内容！";
+                return;
+            }
+
+            // 获取最后一个字符并解析为偏移量
+            const offsetChar = input[input.length - 1];
+            const offset = parseInt(offsetChar, 10);
+
+            if (isNaN(offset)) {
+                outputElement.textContent = "输入的最后一位必须是数字！";
+                return;
+            }
+
+            // 去除最后一位数字，进行 ASCII 转换和偏移
+            const inputWithoutOffset = input.slice(0, -1);
+            const converted = Array.from(inputWithoutOffset).map(char => {
+                const ascii = char.charCodeAt(0); // 获取 ASCII 码
+                const newAscii = ascii + offset; // 加上偏移量
+                return String.fromCharCode(newAscii); // 转回字符
+            }).join("");
+
+            // 输出结果
+            outputElement.textContent = `原始内容: ${inputWithoutOffset}\n偏移量: ${offset}\n转换结果: ${converted}`;
+        }
+    </script>
+</body>
+</html>
