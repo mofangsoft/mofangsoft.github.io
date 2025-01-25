@@ -83,8 +83,7 @@
 <body>
     <div class="container">
         <h1>💊💊💊验屏助手</h1>
-        <p>输入一段文本，程序会将其转换为 ASCII，并根据最后一位数字偏移所有字符。
-        110京东方，130维信诺，160天马</p>
+        <p>输入一段文本，即可直接读出屏幕品牌。请复制全！请勿使用文字识别！</p>
         <textarea id="inputText" rows="5" placeholder="输入内容，例如：hZfd#d[jjV[j`V(('V+*'V-g/'V[g_pVZd[Vm\iV''(1 msm_drm.m_t0=9"></textarea>
         <br>
         <button onclick="convertText()">转换</button>
@@ -115,11 +114,16 @@
 
             // 去除最后的偏移量，进行 ASCII 转换并偏移字符
             const inputWithoutOffset = input.slice(0, -1);
-            const converted = Array.from(inputWithoutOffset).map(char => {
+            let converted = Array.from(inputWithoutOffset).map(char => {
                 const ascii = char.charCodeAt(0);
                 const newAscii = ascii + offset;
                 return String.fromCharCode(newAscii);
             }).join("");
+
+            // 替换特定的 ASCII 值为对应的文字
+            converted = converted.replace(/110/g, "京东方")
+                                 .replace(/130/g, "维信诺")
+                                 .replace(/160/g, "天马");
 
             // 输出转换结果
             outputElement.textContent = `原始内容: ${inputWithoutOffset}\n偏移量: ${offset}\n转换结果: ${converted}`;
