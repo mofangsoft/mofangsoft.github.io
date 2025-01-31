@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>💊💊💊验屏助手</title>
+    <title>💊💊💊验屏助手 2.0 </title>
+    <h3>made by  yuhj<h3>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -83,7 +84,8 @@
 <body>
     <div class="container">
         <h1>💊💊💊验屏助手</h1>
-        <p>输入一段文本，即可直接读出屏幕品牌。请复制全！请勿使用文字识别！</p>
+        <p>输入一段文本，程序会将其转换为 ASCII，并根据最后一位数字偏移所有字符。
+        110京东方，130维信诺，160天马</p>
         <textarea id="inputText" rows="5" placeholder="输入内容，例如：hZfd#d[jjV[j`V(('V+*'V-g/'V[g_pVZd[Vm\iV''(1 msm_drm.m_t0=9"></textarea>
         <br>
         <button onclick="convertText()">转换</button>
@@ -92,42 +94,37 @@
     </div>
 
     <script>
-        function convertText() {
-            const input = document.getElementById("inputText").value;
-            const outputElement = document.getElementById("output");
+function convertText() {
+    const input = document.getElementById("inputText").value;
+    const outputElement = document.getElementById("output");
 
-            // 如果输入为空，提示用户
-            if (input.length === 0) {
-                outputElement.textContent = "请输入内容！";
-                return;
-            }
+    if (input.length === 0) {
+        outputElement.textContent = "请输入内容！";
+        return;
+    }
 
-            // 获取输入的最后一位字符作为偏移量
-            const offsetChar = input[input.length - 1];
-            const offset = parseInt(offsetChar, 10);
+    const offsetChar = input[input.length - 1];
+    const offset = parseInt(offsetChar, 10);
 
-            // 如果最后一位不是数字，提示错误
-            if (isNaN(offset)) {
-                outputElement.textContent = "输入的最后一位必须是数字！";
-                return;
-            }
+    if (isNaN(offset)) {
+        outputElement.textContent = "输入的最后一位必须是数字！";
+        return;
+    }
 
-            // 去除最后的偏移量，进行 ASCII 转换并偏移字符
-            const inputWithoutOffset = input.slice(0, -1);
-            let converted = Array.from(inputWithoutOffset).map(char => {
-                const ascii = char.charCodeAt(0);
-                const newAscii = ascii + offset;
-                return String.fromCharCode(newAscii);
-            }).join("");
+    const inputWithoutOffset = input.slice(0, -1);
+    let converted = Array.from(inputWithoutOffset).map(char => {
+        return String.fromCharCode(char.charCodeAt(0) + offset);
+    }).join("");
 
-            // 替换特定的 ASCII 值为对应的文字
-            converted = converted.replace(/110/g, "京东方")
-                                 .replace(/130/g, "维信诺")
-                                 .replace(/160/g, "天马");
+    // 关键修改：直接替换数字序列
+    converted = converted.replace(/110/g, "京东方")
+                        .replace(/130/g, "维信诺")
+                        .replace(/160/g, "天马");
 
-            // 输出转换结果
-            outputElement.textContent = `原始内容: ${inputWithoutOffset}\n偏移量: ${offset}\n转换结果: ${converted}`;
-        }
-    </script>
+    // 移除非中文并显示
+    const chineseOnly = converted.replace(/[^\u4e00-\u9FFF]/g, '');
+    outputElement.textContent = chineseOnly || "无中文字符输出";
+}
+</script>
 </body>
 </html>
