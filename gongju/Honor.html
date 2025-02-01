@@ -1,90 +1,182 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>💊💊💊验屏助手 2.0 </title>
+    <title>荣耀验屏助手</title>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #ffefdb; /* 温暖的米黄色背景 */
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+    }
 
-        .container {
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 600px;
-        }
+    .container {
+        background-color: #fff5e1; /* 浅米黄色背景 */
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 600px;
+        border: 3px solid #d42a00; /* 添加红色边框 */
+        position: relative;
+        z-index: 10;
+        animation: fadeIn 1.5s ease-in-out;
+    }
 
-        h1 {
-            font-size: 24px;
-            color: #333;
-            text-align: center;
-        }
+    h1 {
+        font-size: 24px;
+        color: #b22222; /* 深红色标题 */
+        text-align: center;
+        font-weight: bold;
+        animation: bounce 1.5s infinite alternate ease-in-out;
+    }
 
-        p {
-            font-size: 16px;
-            color: #555;
-            margin-bottom: 20px;
-        }
+    p {
+        font-size: 16px;
+        color: #800000; /* 暖色调文字 */
+        margin-bottom: 20px;
+    }
 
-        textarea {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            resize: vertical;
-            margin-bottom: 20px;
-            background-color: #fafafa;
-        }
+    textarea {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 2px solid #d42a00; /* 红色边框 */
+        border-radius: 4px;
+        resize: vertical;
+        margin-bottom: 20px;
+        background-color: #fff5e1;
+    }
 
-        button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+    button {
+        background-color: #d42a00; /* 中国红按钮 */
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        font-weight: bold;
+    }
 
-        button:hover {
-            background-color: #45a049;
-        }
+    button:hover {
+        background-color: #b22222; /* 按钮加深颜色 */
+        transform: scale(1.1);
+        transition: transform 0.3s ease-in-out;
+    }
 
-        h3 {
-            font-size: 18px;
-            color: #333;
-            margin-top: 20px;
-        }
+    h3 {
+        font-size: 18px;
+        color: #b22222; /* 深红色 */
+        margin-top: 20px;
+        font-weight: bold;
+    }
 
-        pre {
-            background-color: #f4f4f4;
-            padding: 15px;
-            border-radius: 4px;
-            font-family: 'Courier New', Courier, monospace;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            color: #333;
-        }
-    </style>
+    pre {
+        background-color: #fff0e0; /* 淡暖色背景 */
+        padding: 15px;
+        border-radius: 4px;
+        font-family: 'Courier New', Courier, monospace;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        color: #800000;
+        border: 1px solid #d42a00;
+    }
+
+    /* 新年祝福动画 */
+    .container::before {
+        content: "🧧🎊 新年快乐 🎊🧧";
+        display: block;
+        text-align: center;
+        font-size: 20px;
+        color: #d42a00;
+        font-weight: bold;
+        margin-bottom: 10px;
+        animation: fadeIn 2s ease-in-out, scaleUp 1.5s infinite alternate ease-in-out;
+    }
+
+    /* 烟花动画 */
+    @keyframes fireworks {
+        0% { opacity: 0; transform: scale(0.5); }
+        50% { opacity: 1; transform: scale(1.2); }
+        100% { opacity: 0; transform: scale(1.5); }
+    }
+
+    .firework {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background-color: gold;
+        border-radius: 50%;
+        animation: fireworks 1.5s infinite ease-in-out;
+    }
+
+    /* 文字跳动动画 */
+    @keyframes bounce {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(-10px); }
+    }
+
+    /* 渐入动画 */
+    @keyframes fadeIn {
+        0% { opacity: 0; }
+        100% { opacity: 1; }
+    }
+
+    /* 放大动画 */
+    @keyframes scaleUp {
+        0% { transform: scale(1); }
+        100% { transform: scale(1.1); }
+    }
+
+    /* 添加烟花 */
+    .firework-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+    }
+</style>
+
+<script>
+    // 生成随机烟花
+    function createFirework() {
+        const firework = document.createElement("div");
+        firework.classList.add("firework");
+        document.body.appendChild(firework);
+
+        const x = Math.random() * window.innerWidth;
+        const y = Math.random() * window.innerHeight;
+
+        firework.style.left = `${x}px`;
+        firework.style.top = `${y}px`;
+
+        setTimeout(() => {
+            firework.remove();
+        }, 1500);
+    }
+
+    // 每500毫秒生成一个烟花
+    setInterval(createFirework, 500);
+</script>
 </head>
 <body>
     <div class="container">
-        <h1>💊💊💊验屏助手</h1>
-        <p>2.0重磅推出！🎉🎉🎉🎉🎉</p>
-        <textarea id="inputText" rows="5" placeholder="输入内容，例如：hZfd#d[jjV[j`V(('V+*'V-g/'V[g_pVZd[Vm\iV''(1 msm_drm.m_t0=9"></textarea>
+        <h1>荣耀验屏助手</h1>
+        <p>输入一段文本，程序会将其转换为 ASCII，并根据最后一位数字偏移所有字符。</p>
+        <p>110 → 京东方，130 → 维信诺，160 → 天马</p>
+        <textarea id="inputText" rows="5" placeholder="输入内容，例如：hZfd#d[jjV[j`V(('V+*'V-g/'V[g_pVZd[Vm\iV''(1"></textarea>
         <br>
         <button onclick="convertText()">转换</button>
         <h3>输出结果：</h3>
@@ -92,37 +184,155 @@
     </div>
 
     <script>
-function convertText() {
-    const input = document.getElementById("inputText").value;
-    const outputElement = document.getElementById("output");
+        function convertText() {
+            const input = document.getElementById("inputText").value;
+            const outputElement = document.getElementById("output");
 
-    if (input.length === 0) {
-        outputElement.textContent = "请输入内容！";
-        return;
+            if (input.length === 0) {
+                outputElement.textContent = "请输入内容！";
+                return;
+            }
+
+            const offsetChar = input[input.length - 1];
+            const offset = parseInt(offsetChar, 10);
+
+            if (isNaN(offset)) {
+                outputElement.textContent = "输入的最后一位必须是数字！";
+                return;
+            }
+
+            const inputWithoutOffset = input.slice(0, -1);
+            let converted = Array.from(inputWithoutOffset).map(char => {
+                return String.fromCharCode(char.charCodeAt(0) + offset);
+            }).join("");
+
+            // 关键修改：直接替换数字序列
+            converted = converted.replace(/110/g, "京东方")
+                                .replace(/130/g, "维信诺")
+                                .replace(/160/g, "天马");
+
+            // 移除非中文并显示
+            const chineseOnly = converted.replace(/[^\u4e00-\u9FFF]/g, '');
+            outputElement.textContent = chineseOnly || "无中文字符输出";
+        }
+
+        function createFirework() {
+            const firework = document.createElement("div");
+            firework.classList.add("firework");
+            document.body.appendChild(firework);
+
+            let x = Math.random() * window.innerWidth;
+            let y = Math.random() * window.innerHeight;
+            firework.style.left = `${x}px`;
+            firework.style.top = `${y}px`;
+
+            setTimeout(() => { firework.remove(); }, 1500);
+        }
+
+        // 每隔 500ms 生成一个烟花
+        setInterval(createFirework, 500);
+    </script>
+    <style>
+    /* 全局样式 */
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #ffefdb; /* 温暖的米黄色背景 */
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
     }
 
-    const offsetChar = input[input.length - 1];
-    const offset = parseInt(offsetChar, 10);
-
-    if (isNaN(offset)) {
-        outputElement.textContent = "输入的最后一位必须是数字！请复制到t0=n ";
-        return;
+    .container {
+        background-color: #fff5e1; /* 浅米黄色背景 */
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 600px;
+        border: 3px solid #d42a00; /* 添加红色边框 */
+        position: relative;
+        z-index: 10;
+        animation: fadeIn 1.5s ease-in-out;
     }
 
-    const inputWithoutOffset = input.slice(0, -1);
-    let converted = Array.from(inputWithoutOffset).map(char => {
-        return String.fromCharCode(char.charCodeAt(0) + offset);
-    }).join("");
+    h1 {
+        font-size: 24px;
+        color: #b22222; /* 深红色标题 */
+        text-align: center;
+        font-weight: bold;
+    }
 
-    // 关键修改：直接替换数字序列
-    converted = converted.replace(/110/g, "京东方")
-                        .replace(/130/g, "维信诺")
-                        .replace(/160/g, "天马");
+    /* 渐入动画 */
+    @keyframes fadeIn {
+        0% { opacity: 0; }
+        100% { opacity: 1; }
+    }
 
-    // 移除非中文并显示
-    const chineseOnly = converted.replace(/[^\u4e00-\u9FFF]/g, '');
-    outputElement.textContent = chineseOnly || "无中文字符输出";
-}
+    /* 灯笼下落动画 */
+    @keyframes lanternFall {
+        0% {
+            transform: translateY(-100vh) rotate(0deg);
+            opacity: 0;
+        }
+        50% {
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(100vh) rotate(360deg);
+            opacity: 0;
+        }
+    }
+
+    /* 灯笼样式 */
+    .lantern {
+        position: absolute;
+        width: 40px;
+        height: 50px;
+        background-color: #d42a00;
+        border-radius: 50%;
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        top: -60px;
+        animation: lanternFall 5s linear infinite;
+    }
+
+    /* 生成随机大小的灯笼 */
+    .lantern::before {
+        content: "🏮";
+        font-size: 40px;
+        display: block;
+        text-align: center;
+        line-height: 50px;
+        color: gold;
+    }
+</style>
+
+<script>
+    function createLantern() {
+        const lantern = document.createElement("div");
+        lantern.classList.add("lantern");
+        document.body.appendChild(lantern);
+
+        // 生成随机位置和大小
+        const x = Math.random() * window.innerWidth;
+        const scale = Math.random() * 0.6 + 0.7; // 0.7~1.3 之间的随机缩放
+        const duration = Math.random() * 3 + 4; // 4~7秒之间的随机速度
+
+        lantern.style.left = `${x}px`;
+        lantern.style.transform = `scale(${scale})`;
+        lantern.style.animationDuration = `${duration}s`;
+
+        // 一定时间后移除灯笼
+        setTimeout(() => {
+            lantern.remove();
+        }, duration * 1000);
+    }
+
+    // 每300ms生成一个灯笼
+    setInterval(createLantern, 300);
 </script>
 </body>
 </html>
