@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>荣耀验屏助手 🎉</title>
     <style>
-        /* 全局样式 */
         * {
             margin: 0;
             padding: 0;
@@ -21,7 +20,7 @@
 
         .container {
             background-color: white;
-            max-width: 480px; /* 适配手机，最大宽度 480px */
+            max-width: 480px;
             margin: auto;
             padding: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -40,7 +39,6 @@
             margin-bottom: 10px;
         }
 
-        /* 文件上传按钮 */
         input[type="file"] {
             width: 100%;
             padding: 10px;
@@ -50,10 +48,9 @@
             font-size: 14px;
         }
 
-        /* 文本框样式 */
         textarea {
             width: 100%;
-            height: 80px; /* 手机端更小 */
+            height: 80px;
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 5px;
@@ -61,9 +58,8 @@
             resize: none;
         }
 
-        /* 按钮样式 */
         button {
-            width: 100%;  /* 适配手机，全屏按钮 */
+            width: 100%;
             background-color: #d81e06;
             color: white;
             border: none;
@@ -78,7 +74,6 @@
             background-color: #b01404;
         }
 
-        /* 结果显示框 */
         pre {
             background: #333;
             color: #fff;
@@ -91,7 +86,6 @@
             margin-top: 10px;
         }
 
-        /* 响应式设计 */
         @media (max-width: 480px) {
             .container {
                 width: 100%;
@@ -117,17 +111,18 @@
 <body>
     <div class="container">
         <h1>荣耀验屏助手 🎉</h1>
-        <h3>作者 yuhj<h3>
-        <p>使用方法：第一步，设置-关于手机-点击7次版本号
-第二步，系统和更新-开发人员选项-提交错误报告-选择完整报告
-第三步，好了以后会弹出让你保存文件（没弹出，你就通知栏等着
-第四步，解压保存的文件，请选择 bugreport开头的 TXT 文件，在网页中进行选择，程序会自动提取内容后填充。</p>
-        <input type="file" id="fileInput" accept=".txt">
+        <h3>作者 yuhj</h3>
+        <p>使用方法：  
+        1. 设置-关于手机-点击7次版本号，开启开发者模式。<br>
+        2. 进入“系统和更新”-“开发人员选项”-“提交错误报告”-选择完整报告。<br>
+        3. 生成报告后，保存 bugreport 开头的 TXT 文件。<br>
+        4. 选择 TXT 文件，系统自动提取并转换内容。</p>
 
-        <p>输入教程要求输入的内容，注意不要多，不要少。</p>
-        <textarea id="inputText" rows="5" placeholder="自动填充的内容会显示在这里"></textarea>
-        
-        <button onclick="convertText()">转换</button>
+        <input type="file" id="fileInput" accept=".txt">
+        <p>自动填充的内容：</p>
+        <textarea id="inputText" rows="5" placeholder="文件解析内容"></textarea>
+          
+        <button onclick="convertText()">转换</button>  
         <h3>输出结果：</h3>
         <pre id="output">等待输入...</pre>
     </div>
@@ -155,17 +150,14 @@
                 return String.fromCharCode(char.charCodeAt(0) + offset);
             }).join("");
 
-            // 关键修改：直接替换数字序列
             converted = converted.replace(/110/g, "京东方")
                                 .replace(/130/g, "维信诺")
                                 .replace(/160/g, "天马");
 
-            // 仅保留中文字符
             const chineseOnly = converted.replace(/[^\u4e00-\u9FFF]/g, '');
             outputElement.textContent = chineseOnly || "无中文字符输出";
         }
 
-        // 监听文件选择
         document.getElementById("fileInput").addEventListener("change", function(event) {
             const file = event.target.files[0];
             if (!file) return;
@@ -175,29 +167,53 @@
                 const content = e.target.result;
                 console.log("文件内容：", content);
 
-                // 找到 display0 和 t0=n 之间的内容
-                const displayIndex = content.indexOf("display0");
-                const t0Index = content.indexOf("t0=");
-
-                if (displayIndex === -1 || t0Index === -1 || t0Index <= displayIndex) {
-                    alert("未找到正确的 display0 和 t0=n 结构。请升级 Magic OS 9");
+                // 使用正则匹配 display0= 后的 70 个字符
+                const match = content.match(/display0=([\s\S]{70})/);
+                if (!match) {
+                    alert("未找到 display0= 后的内容，请检查 TXT 文件内容！");
                     return;
                 }
 
-                // 提取 t0=n 开头，到 display0 结尾的内容
-                const extractedText = content.substring(displayIndex + 8, t0Index + 4);
-                console.log("提取内容：", extractedText);
+                let extractedText = match[1];
+                console.log("提取的 70 位内容：", extractedText);
 
-                // 填充到输入框
+                // 找到 0=n 结构并提取 n 值
+                const offsetMatch = extractedText.match(/0=(\d)/);
+                if (!offsetMatch) {
+                    alert("未找到 0=n 结构，无法获取偏移量！");
+                    return;
+                }
+
+                const offset = parseInt(offsetMatch[1], 10);
+                console.log("解析出的偏移量：", offset);
+
+                // **仅保留 0=n 之前的内容**
+                extractedText = extractedText.substring(0, offsetMatch.index + 3);
+                console.log("处理后的提取内容：", extractedText);
+
+                // 进行字符偏移转换
+                let converted = Array.from(extractedText).map(char => {
+                    return String.fromCharCode(char.charCodeAt(0) + offset);
+                }).join("");
+
+                // 关键字替换
+                converted = converted.replace(/110/g, "京东方")
+                                    .replace(/130/g, "维信诺")
+                                    .replace(/160/g, "天马");
+
+                // 仅保留中文字符
+                const chineseOnly = converted.replace(/[^\u4e00-\u9FFF]/g, '');
+
                 document.getElementById("inputText").value = extractedText;
+                document.getElementById("output").textContent = chineseOnly || "无中文字符输出";
             };
 
             reader.onerror = function(err) {
-                console.error("读取文件错误，如果不是 MagicOS 9, 请升级：", err);
+                console.error("读取文件错误，请检查文件格式或内容：", err);
             };
 
             reader.readAsText(file, "UTF-8");
         });
     </script>
 </body>
-        </html>
+</html>
