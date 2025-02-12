@@ -1,219 +1,464 @@
 <!DOCTYPE html>
 <html lang="zh">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>荣耀验屏助手 🎉</title>
+    <title>荣耀验屏助手 ✨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
-            font-family: "Arial", sans-serif;
-            background-color: #f4f4f4;
-            text-align: center;
-            padding: 10px;
+            font-family: 'Segoe UI', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+            background-size: 300% 300%;
+            animation: gradientBG 12s ease infinite;
+            position: relative;
+            overflow: hidden;
         }
-
+        
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        
+        .particle {
+            position: absolute;
+            background: rgba(255,255,255,0.6);
+            border-radius: 50%;
+            animation: float 3s infinite;
+        }
+        
         .container {
-            background-color: white;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
             max-width: 480px;
-            margin: auto;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
+            width: 95%;
+            margin: 20px;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s ease;
         }
-
+        
+        .container:hover {
+            transform: translateY(-5px);
+        }
+        
         h1 {
-            font-size: 22px;
-            color: #d81e06;
-            margin-bottom: 10px;
+            font-size: 28px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+            display: inline-block;
         }
-
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: #d81e06;
+            border-radius: 2px;
+        }
+        
+        h3 {
+            color: #34495e;
+            margin: 15px 0;
+            font-weight: 500;
+        }
+        
         p {
             font-size: 14px;
             color: #666;
-            margin-bottom: 10px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            background: rgba(236, 240, 241,0.3);
+            padding: 15px;
+            border-radius: 8px;
         }
-
+        
+        .file-input-wrapper {
+            position: relative;
+            margin: 20px 0;
+            border: 2px dashed #bdc3c7;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .file-input-wrapper:hover {
+            border-color: #d81e06;
+            background: rgba(216,30,6,0.05);
+        }
+        
         input[type="file"] {
+            opacity: 0;
             width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 14px;
+            height: 100px;
+            position: absolute;
+            cursor: pointer;
         }
-
+        
+        .custom-file-input {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100px;
+            color: #7f8c8d;
+        }
+        
+        .custom-file-input i {
+            font-size: 32px;
+            margin-bottom: 10px;
+            transition: color 0.3s ease;
+        }
+        
+        .file-input-wrapper:hover .custom-file-input {
+            color: #d81e06;
+        }
+        
         textarea {
             width: 100%;
-            height: 80px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            height: 100px;
+            padding: 15px;
+            border: 2px solid #ecf0f1;
+            border-radius: 10px;
             font-size: 14px;
             resize: none;
+            transition: all 0.3s ease;
+            background: rgba(236, 240, 241,0.3);
         }
-
+        
+        textarea:focus {
+            border-color: #d81e06;
+            outline: none;
+            box-shadow: 0 0 8px rgba(216,30,6,0.2);
+        }
+        
         button {
             width: 100%;
-            background-color: #d81e06;
+            background: linear-gradient(45deg, #d81e06, #ff4757);
             color: white;
             border: none;
-            padding: 12px;
+            padding: 16px;
             font-size: 16px;
             cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
-
+        
+        button::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255,255,255,0.1);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+        }
+        
+        button:hover::after {
+            left: 50%;
+            top: 50%;
+        }
+        
         button:hover {
-            background-color: #b01404;
+            box-shadow: 0 8px 20px rgba(216,30,6,0.3);
+            transform: translateY(-2px);
         }
-
+        
         pre {
-            background: #333;
-            color: #fff;
-            padding: 10px;
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
             font-size: 14px;
-            border-radius: 5px;
+            border-radius: 8px;
             text-align: left;
             white-space: pre-wrap;
             word-wrap: break-word;
-            margin-top: 10px;
+            margin-top: 15px;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 0.5s ease;
         }
-
+        
+        pre::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: #d81e06;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
         @media (max-width: 480px) {
             .container {
-                width: 100%;
-                padding: 15px;
-                border-radius: 0;
+                padding: 20px;
             }
             h1 {
-                font-size: 20px;
+                font-size: 24px;
             }
             button {
-                font-size: 14px;
-                padding: 10px;
-            }
-            textarea {
-                height: 70px;
-            }
-            pre {
-                font-size: 12px;
+                padding: 12px;
             }
         }
     </style>
 </head>
-<body>
-    <div class="container">
-        <h1>荣耀验屏助手 🎉</h1>
-        <h3>作者 yuhj</h3>
-        <p>使用方法：  
-        1. 设置-关于手机-点击7次版本号，开启开发者模式。<br>
-        2. 进入“系统和更新”-“开发人员选项”-“提交错误报告”-选择完整报告。<br>
-        3. 生成报告后，保存 bugreport 开头的 TXT 文件。<br>
-        4. 选择 TXT 文件，系统自动提取并转换内容。</p>
 
-        <input type="file" id="fileInput" accept=".txt">
-        <p>自动填充的内容：</p>
-        <textarea id="inputText" rows="5" placeholder="文件解析内容"></textarea>
-          
-        <button onclick="convertText()">转换</button>  
-        <h3>输出结果：</h3>
+<body>
+    <!-- 粒子背景 -->
+    <div class="particles" id="particles"></div>
+
+    <div class="container">
+        <h1>✨ 荣耀验屏助手 ✨</h1>
+        <h3><i class="fas fa-user"></i> 作者 yuhj</h3>
+        <p>
+            <i class="fas fa-info-circle"></i> 使用方法：<br>
+            1. 设置-关于手机-点击7次版本号，开启开发者模式<br>
+            2. 进入“系统和更新”-“开发人员选项”-“提交错误报告”-选择完整报告<br>
+            3. 生成报告后，保存 bugreport 开头的 TXT 文件<br>
+            4. 选择 TXT 文件，系统自动提取并转换内容
+        </p>
+
+        <div class="file-input-wrapper">
+            <input type="file" id="fileInput" accept=".txt">
+            <div class="custom-file-input">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <span>点击选择文件或拖拽到此区域</span>
+            </div>
+        </div>
+
+        <p><i class="fas fa-align-left"></i> 自动填充的内容：</p>
+        <textarea id="inputText" rows="5" placeholder="文件解析内容..."></textarea>
+
+        <button onclick="convertText()">
+            <i class="fas fa-magic"></i> 开始转换
+        </button>
+
+        <h3><i class="fas fa-terminal"></i> 输出结果：</h3>
         <pre id="output">等待输入...</pre>
     </div>
 
     <script>
-        function convertText() {
+        // 粒子动画
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for(let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.width = particle.style.height = Math.random() * 4 + 2 + 'px';
+                particle.style.animationDelay = Math.random() * 3 + 's';
+                container.appendChild(particle);
+            }
+        }
+        createParticles();
+        
+        // 文件拖拽功能
+        const fileInput = document.getElementById('fileInput');
+        const fileWrapper = document.querySelector('.file-input-wrapper');
+        
+        fileWrapper.ondragover = (e) => {
+            e.preventDefault();
+            fileWrapper.style.transform = 'scale(1.02)';
+            fileWrapper.style.borderColor = '#d81e06';
+        };
+        
+        fileWrapper.ondragleave = () => {
+            fileWrapper.style.transform = 'scale(1)';
+            fileWrapper.style.borderColor = '#bdc3c7';
+        };
+        
+        fileWrapper.ondrop = (e) => {
+            e.preventDefault();
+            fileInput.files = e.dataTransfer.files;
+            handleFile(fileInput.files[0]);
+        };
+        
+        function handleFile(file) {
+            const reader = new FileReader();
+            reader.onload = processFile;
+            reader.readAsText(file);
+        }
+        
+        function processFile(e) {
+            // 原有文件处理逻辑...
+        }
+        
+        // 原有文件处理和转换逻辑保持不变...
+           function convertText() {
             const input = document.getElementById("inputText").value;
             const outputElement = document.getElementById("output");
-
+        
             if (input.length === 0) {
                 outputElement.textContent = "请输入内容！";
                 return;
             }
-
+        
             const offsetChar = input[input.length - 1];
             const offset = parseInt(offsetChar, 10);
-
+        
             if (isNaN(offset)) {
                 outputElement.textContent = "输入的最后一位必须是数字！";
                 return;
             }
-
+        
             const inputWithoutOffset = input.slice(0, -1);
             let converted = Array.from(inputWithoutOffset).map(char => {
                 return String.fromCharCode(char.charCodeAt(0) + offset);
             }).join("");
-
+        
             converted = converted.replace(/110/g, "京东方")
                                 .replace(/130/g, "维信诺")
                                 .replace(/160/g, "天马");
-
+        
             const chineseOnly = converted.replace(/[^\u4e00-\u9FFF]/g, '');
             outputElement.textContent = chineseOnly || "无中文字符输出";
         }
-
+        
         document.getElementById("fileInput").addEventListener("change", function(event) {
             const file = event.target.files[0];
             if (!file) return;
-
+        
             const reader = new FileReader();
             reader.onload = function(e) {
                 const content = e.target.result;
                 console.log("文件内容：", content);
-
+        
                 // 使用正则匹配 display0= 后的 70 个字符
                 const match = content.match(/display0=([\s\S]{70})/);
                 if (!match) {
                     alert("未找到 display0= 后的内容，请检查 TXT 文件内容！");
                     return;
                 }
-
+        
                 let extractedText = match[1];
                 console.log("提取的 70 位内容：", extractedText);
-
+        
                 // 找到 0=n 结构并提取 n 值
                 const offsetMatch = extractedText.match(/0=(\d)/);
                 if (!offsetMatch) {
                     alert("未找到 0=n 结构，无法获取偏移量！");
                     return;
                 }
-
+        
                 const offset = parseInt(offsetMatch[1], 10);
                 console.log("解析出的偏移量：", offset);
-
+        
                 // **仅保留 0=n 之前的内容**
                 extractedText = extractedText.substring(0, offsetMatch.index + 3);
                 console.log("处理后的提取内容：", extractedText);
-
+        
                 // 进行字符偏移转换
                 let converted = Array.from(extractedText).map(char => {
                     return String.fromCharCode(char.charCodeAt(0) + offset);
                 }).join("");
-
+        
                 // 关键字替换
                 converted = converted.replace(/110/g, "京东方")
                                     .replace(/130/g, "维信诺")
                                     .replace(/160/g, "天马");
-
+        
                 // 仅保留中文字符
                 const chineseOnly = converted.replace(/[^\u4e00-\u9FFF]/g, '');
-
+        
                 document.getElementById("inputText").value = extractedText;
                 document.getElementById("output").textContent = chineseOnly || "无中文字符输出";
             };
-
+        
             reader.onerror = function(err) {
                 console.error("读取文件错误，请检查文件格式或内容：", err);
             };
-
+        
             reader.readAsText(file, "UTF-8");
         });
     </script>
+    <style>
+        /* 基础滚动条样式 */
+        body {
+            margin: 0;
+            /* 强制始终显示滚动条（防止内容跳动） */
+            overflow-y: scroll; 
+        }
+
+        /* 现代浏览器自定义滚动条 */
+        ::-webkit-scrollbar {
+            width: 15px;  /* 垂直滚动条宽度 */
+            height: 15px; /* 水平滚动条高度 */
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+            border-radius: 10px;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, #ff6b6b, #ff9f43);
+            border-radius: 10px;
+            border: 3px solid #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(45deg, #ff5252, #ff7f00);
+        }
+
+        /* 火狐浏览器自定义 */
+        @supports (-moz-appearance:none) {
+            html {
+                scrollbar-color: #ff6b6b #f1f1f1;
+                scrollbar-width: thin;
+            }
+        }
+
+        /* 内容区域样式（示例） */
+        .content {
+            height: 200vh; /* 制造滚动效果 */
+            padding: 20px;
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+            font-family: Arial;
+        }
+    </style>
 </body>
+
 </html>
