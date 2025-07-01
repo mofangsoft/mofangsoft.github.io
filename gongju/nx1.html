@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>获取选项</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            padding: 20px;
+        }
+        
+        .container {
+            text-align: center;
+            max-width: 1200px;
+            width: 100%;
+        }
+        
+        .header {
+            margin-bottom: 60px;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            color: white;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 60px;
+            margin-top: 30px;
+        }
+        
+        .btn-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .btn-title {
+            font-size: 1.8rem;
+            color: white;
+            margin-bottom: 25px;
+            font-weight: 600;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: translateY(0);
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.25);
+        }
+        
+        .btn:active {
+            transform: translateY(-5px) scale(0.98);
+        }
+        
+        .btn-inner {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+        }
+        
+        .btn-icon {
+            font-size: 4.5rem;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+        }
+        
+        .btn-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        
+        .btn-1 {
+            background: linear-gradient(135deg, #ff9500, #ff5e3a);
+        }
+        
+        .btn-1::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .btn-1:hover::before {
+            opacity: 1;
+        }
+        
+        .btn-2 {
+            background: linear-gradient(135deg, #00c9ff, #92fe9d);
+        }
+        
+        .btn-2::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .btn-2:hover::before {
+            opacity: 1;
+        }
+        
+        .description {
+            margin-top: 25px;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.85);
+            max-width: 300px;
+            line-height: 1.5;
+        }
+        
+        .footer {
+            margin-top: 80px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.1rem;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .buttons-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 80px;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .btn {
+                width: 180px;
+                height: 180px;
+            }
+            
+            .btn-icon {
+                font-size: 3.5rem;
+            }
+            
+            .btn-text {
+                font-size: 1.5rem;
+            }
+        }
+        
+        /* 动画效果 */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>获取产品</h1>
+            <p class="subtitle">选择适合您的获取方式，我们提供官方渠道购买和免费获取两种选项</p>
+        </div>
+        
+        <div class="buttons-container">
+            <div class="btn-wrapper">
+                <h3 class="btn-title">官方渠道购买</h3>
+                <a href="https://m.tb.cn/h.hUv8Cu1?tk=dvs2Vysc3BC" class="btn btn-1 floating" id="buy-btn">
+                    <div class="btn-inner">
+                        <div class="btn-icon"><i class="fas fa-shopping-cart"></i></div>
+                        <div class="btn-text">去闲鱼购买</div>
+                    </div>
+                </a>
+                <p class="description">———————————</p>
+            </div>
+            
+            <div class="btn-wrapper">
+                <h3 class="btn-title">免费获取</h3>
+                <a href="https://qm.qq.com/q/uOwyrwBpYs" class="btn btn-2 floating" id="free-btn">
+                    <div class="btn-inner">
+                        <div class="btn-icon"><i class="fas fa-gift"></i></div>
+                        <div class="btn-text">免费获取</div>
+                    </div>
+                </a>
+                <p class="description">参与免费获取活动，限量供应，先到先得</p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>© 2025 小於同学</p>
+        </div>
+    </div>
+
+    <script>
+        // 简单的悬浮动画增强
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                this.classList.remove('floating');
+            });
+            
+            btn.addEventListener('mouseleave', function() {
+                this.classList.add('floating');
+            });
+        });
+        
+    </script>
+</body>
+</html>
