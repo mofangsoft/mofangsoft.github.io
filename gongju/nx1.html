@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -154,6 +154,27 @@
             opacity: 1;
         }
         
+        /* 新增蓝狐社区按钮样式 */
+        .btn-3 {
+            background: linear-gradient(135deg, #8A2BE2, #4169E1);
+        }
+        
+        .btn-3::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .btn-3:hover::before {
+            opacity: 1;
+        }
+        
         .description {
             margin-top: 25px;
             font-size: 1.1rem;
@@ -214,7 +235,7 @@
     <div class="container">
         <div class="header">
             <h1>获取产品</h1>
-            <p class="subtitle">选择适合您的获取方式，我们提供官方渠道购买和免费获取两种选项</p>
+            <p class="subtitle">选择适合您的获取方式，我们提供官方渠道购买、免费获取和蓝狐社区领取三种选项</p>
         </div>
         
         <div class="buttons-container">
@@ -239,6 +260,18 @@
                 </a>
                 <p class="description">工具价格浮动，一般会在蓝狐手机降价是也降价</p>
             </div>
+            
+   
+            <div class="btn-wrapper">
+                <h3 class="btn-title">蓝狐社区免费领取</h3>
+                <a href="https://www.bluefoxforum.com/h5/#/pages/sticky/sticky?id=356&fph=1&from_user=184&tenant=0" class="btn btn-3 floating" id="bluefox-btn">
+                    <div class="btn-inner">
+                        <div class="btn-icon"><i class="fas fa-download"></i></div>
+                        <div class="btn-text">免费领取</div>
+                    </div>
+                </a>
+                <p class="description">加入蓝狐社区，免费获取工具资源</p>
+            </div>
         </div>
         
         <div class="footer">
@@ -258,6 +291,11 @@
             });
         });
         
+        // 为蓝狐社区按钮添加点击事件
+        document.getElementById('bluefox-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('蓝狐社区免费领取！');
+        });
     </script>
 </body>
 </html>
