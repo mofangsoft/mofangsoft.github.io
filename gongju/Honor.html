@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>荣耀验屏助手 ✨</title>
+    <title>荣耀屏幕厂商查询助手 </title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * {
@@ -19,11 +19,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+            background: linear-gradient(45deg, #f5f5f5, #e0e0e0, #f0f0f0);
             background-size: 300% 300%;
             animation: gradientBG 12s ease infinite;
             position: relative;
             overflow: hidden;
+            color: #333;
         }
         
         .particles {
@@ -35,7 +36,7 @@
         
         .particle {
             position: absolute;
-            background: rgba(255,255,255,0.6);
+            background: rgba(100, 100, 100, 0.3);
             border-radius: 50%;
             animation: float 3s infinite;
         }
@@ -48,10 +49,11 @@
             margin: 20px;
             padding: 30px;
             border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
             position: relative;
             z-index: 1;
             transition: transform 0.3s ease;
+            border: 1px solid #e0e0e0;
         }
         
         .container:hover {
@@ -60,9 +62,9 @@
         
         h1 {
             font-size: 28px;
-            color: #2c3e50;
+            color: #333;
             margin-bottom: 15px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
             position: relative;
             display: inline-block;
         }
@@ -75,12 +77,12 @@
             transform: translateX(-50%);
             width: 60px;
             height: 3px;
-            background: #d81e06;
+            background: #555;
             border-radius: 2px;
         }
         
         h3 {
-            color: #34495e;
+            color: #444;
             margin: 15px 0;
             font-weight: 500;
         }
@@ -90,7 +92,7 @@
             color: #666;
             line-height: 1.6;
             margin-bottom: 20px;
-            background: rgba(236, 240, 241,0.3);
+            background: rgba(240, 240, 240, 0.5);
             padding: 15px;
             border-radius: 8px;
         }
@@ -98,14 +100,14 @@
         .file-input-wrapper {
             position: relative;
             margin: 20px 0;
-            border: 2px dashed #bdc3c7;
+            border: 2px dashed #ccc;
             border-radius: 12px;
             transition: all 0.3s ease;
         }
         
         .file-input-wrapper:hover {
-            border-color: #d81e06;
-            background: rgba(216,30,6,0.05);
+            border-color: #777;
+            background: rgba(120, 120, 120, 0.05);
         }
         
         input[type="file"] {
@@ -122,7 +124,7 @@
             align-items: center;
             justify-content: center;
             height: 100px;
-            color: #7f8c8d;
+            color: #777;
         }
         
         .custom-file-input i {
@@ -132,30 +134,30 @@
         }
         
         .file-input-wrapper:hover .custom-file-input {
-            color: #d81e06;
+            color: #444;
         }
         
         textarea {
             width: 100%;
             height: 100px;
             padding: 15px;
-            border: 2px solid #ecf0f1;
+            border: 2px solid #e0e0e0;
             border-radius: 10px;
             font-size: 14px;
             resize: none;
             transition: all 0.3s ease;
-            background: rgba(236, 240, 241,0.3);
+            background: rgba(240, 240, 240, 0.5);
         }
         
         textarea:focus {
-            border-color: #d81e06;
+            border-color: #777;
             outline: none;
-            box-shadow: 0 0 8px rgba(216,30,6,0.2);
+            box-shadow: 0 0 8px rgba(120, 120, 120, 0.2);
         }
         
         button {
             width: 100%;
-            background: linear-gradient(45deg, #d81e06, #ff4757);
+            background: linear-gradient(45deg, #777, #999);
             color: white;
             border: none;
             padding: 16px;
@@ -185,13 +187,13 @@
         }
         
         button:hover {
-            box-shadow: 0 8px 20px rgba(216,30,6,0.3);
+            box-shadow: 0 8px 20px rgba(100, 100, 100, 0.3);
             transform: translateY(-2px);
         }
         
         pre {
-            background: #2c3e50;
-            color: #ecf0f1;
+            background: #2c2c2c;
+            color: #e0e0e0;
             padding: 15px;
             font-size: 14px;
             border-radius: 8px;
@@ -211,7 +213,7 @@
             left: 0;
             width: 3px;
             height: 100%;
-            background: #d81e06;
+            background: #777;
         }
         
         @keyframes gradientBG {
@@ -249,12 +251,14 @@
     <div class="particles" id="particles"></div>
 
     <div class="container">
-        <h1>✨ 荣耀验屏助手 ✨</h1>
-        <h3><i class="fas fa-user"></i> 作者 yuhj</h3>
+        <h1>荣耀屏幕厂商查询助手</h1>
+        <h3><i class="fas fa-user"></i>停更中</h3>
         <p>
+            <br>免责声明:本网页不保证准确性，不对输出内容负责。荣耀手机公司可能随时更改有关的代码。屏幕不分好坏，觉得好就是好。<br>
+        
             <i class="fas fa-info-circle"></i> 使用方法：<br>
             1. 设置-关于手机-点击7次版本号，开启开发者模式<br>
-            2. 进入“系统和更新”-“开发人员选项”-“提交错误报告”-选择完整报告<br>
+            2. 进入"系统和更新"-"开发人员选项"-"提交错误报告"-选择完整报告<br>
             3. 生成报告后，保存 bugreport 开头的 TXT 文件<br>
             4. 选择 TXT 文件，系统自动提取并转换内容
         </p>
@@ -301,12 +305,12 @@
         fileWrapper.ondragover = (e) => {
             e.preventDefault();
             fileWrapper.style.transform = 'scale(1.02)';
-            fileWrapper.style.borderColor = '#d81e06';
+            fileWrapper.style.borderColor = '#777';
         };
         
         fileWrapper.ondragleave = () => {
             fileWrapper.style.transform = 'scale(1)';
-            fileWrapper.style.borderColor = '#bdc3c7';
+            fileWrapper.style.borderColor = '#ccc';
         };
         
         fileWrapper.ondrop = (e) => {
@@ -353,7 +357,7 @@
                                 .replace(/160/g, "天马");
         
             const chineseOnly = converted.replace(/[^\u4e00-\u9FFF]/g, '');
-            outputElement.textContent = chineseOnly || "无中文字符输出";
+            outputElement.textContent = chineseOnly || "查询不到厂商";
         }
         
         document.getElementById("fileInput").addEventListener("change", function(event) {
@@ -368,7 +372,7 @@
                 // 使用正则匹配 display0= 后的 70 个字符
                 const match = content.match(/display0=([\s\S]{70})/);
                 if (!match) {
-                    alert("未找到 display0= 后的内容，请检查 TXT 文件内容！");
+                    alert("文件选错了，请确认");
                     return;
                 }
         
@@ -378,7 +382,7 @@
                 // 找到 0=n 结构并提取 n 值
                 const offsetMatch = extractedText.match(/0=(\d)/);
                 if (!offsetMatch) {
-                    alert("未找到 0=n 结构，无法获取偏移量！");
+                    alert("文件选错了？或者是查询方法被封了？");
                     return;
                 }
         
@@ -395,9 +399,9 @@
                 }).join("");
         
                 // 关键字替换
-                converted = converted.replace(/110/g, "京东方")
-                                    .replace(/130/g, "维信诺")
-                                    .replace(/160/g, "天马");
+                converted = converted.replace(/110/g, "京东方【不保证准确性】")
+                                    .replace(/130/g, "维信诺【不保证准确性】")
+                                    .replace(/160/g, "天马【不保证准确性】");
         
                 // 仅保留中文字符
                 const chineseOnly = converted.replace(/[^\u4e00-\u9FFF]/g, '');
@@ -434,19 +438,19 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(45deg, #ff6b6b, #ff9f43);
+            background: linear-gradient(45deg, #777, #999);
             border-radius: 10px;
             border: 3px solid #f1f1f1;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(45deg, #ff5252, #ff7f00);
+            background: linear-gradient(45deg, #666, #888);
         }
 
         /* 火狐浏览器自定义 */
         @supports (-moz-appearance:none) {
             html {
-                scrollbar-color: #ff6b6b #f1f1f1;
+                scrollbar-color: #777 #f1f1f1;
                 scrollbar-width: thin;
             }
         }
@@ -455,7 +459,7 @@
         .content {
             height: 200vh; /* 制造滚动效果 */
             padding: 20px;
-            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
             font-family: Arial;
         }
     </style>
